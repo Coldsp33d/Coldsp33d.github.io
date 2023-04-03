@@ -1,37 +1,76 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Find Optimal Trainers</title>
+  <title>Calculate Perfect Exp</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      padding: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+    }
+
+    #results-table {
+      margin-top: 2rem;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Find Optimal Trainers</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>Find Optimal Trainers</h1>
 
-  <form id="input-form">
-    <label for="current-exp">Current Exp:</label>
-    <input type="number" id="current-exp" name="current-exp" required>
+        <form id="input-form">
+          <div class="mb-3">
+            <label for="current-exp" class="form-label">Current Exp:</label>
+            <input type="number" class="form-control" id="current-exp" name="current-exp" required>
+          </div>
 
-    <label for="desired-exp">Desired Exp:</label>
-    <input type="number" id="desired-exp" name="desired-exp" required>
+          <div class="mb-3">
+            <label for="desired-exp" class="form-label">Desired Exp:</label>
+            <input type="number" class="form-control" id="desired-exp" name="desired-exp" required>
+          </div>
 
-    <label for="use-exp-night">Can you KO Gratz Matt gym?</label>
-    <input type="checkbox" id="use-gratz-matt" name="use-gratz-matt" value="true">
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="use-gratz-matt" name="use-gratz-matt" value="true">
+            <label for="use-gratz-matt" class="form-check-label">Can you KO Gratz Matt gym? </label>
+          </div>
 
-    <button type="submit">Submit</button>
-  </form>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
 
-  <table id="results-table">
-    <thead>
-      <tr>
-        <th>Trainer</th>
-        <th>Battles Required</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+        <table id="results-table" class="table">
+          <thead>
+            <tr>
+              <th scope="col">Trainer</th>
+              <th scope="col">Battles Required</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- Custom JS -->
   <script src="app.js"></script>
 </body>
+
 </html>
