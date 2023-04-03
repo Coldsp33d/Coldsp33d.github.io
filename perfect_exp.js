@@ -218,7 +218,7 @@ async function main() {
     infoDiv.innerHTML = `While training during the ${
       isNightTime ? "NIGHT" : "DAY"
     } time`;
-    infoDiv.style.visibility = "visible";
+    infoDiv.style.display = "block";
 
     // Populate the results table
     const resultsTableBody = document
