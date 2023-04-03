@@ -17,7 +17,7 @@ function findOptimalTrainers(
   table,
   useExpNight = false,
   includeId = false,
-  highestGymInput = undefined
+  highestGym = undefined
 ) {
   // Compute the exp difference and filter out trainers with negative exp gains
   const expGain = useExpNight
@@ -34,8 +34,8 @@ function findOptimalTrainers(
       (useExpNight ? b.expNight : b.expDay)
   );
 
-  if (highestGymInput) {
-    const index = tableSorted.map(row => row.number).indexOf(highestGymInput);
+  if (highestGym) {
+    const index = tableSorted.map(row => row.number).indexOf(highestGym);
     tableSorted = tableSorted.splice(index);
   }
 
@@ -196,7 +196,6 @@ async function main() {
   if (urlParams.has("desiredExp")) {
     desiredExpInput.value = urlParams.get("desiredExp");
   }
-
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
