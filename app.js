@@ -52,10 +52,8 @@ function getPerfectExp(level, ceil = true) {
 }
 
 async function run(disableGratzmattGym = false) {
-  const url = 'https://wiki.tppc.info/Training_Accounts';
-
   // Make a GET request to the URL and get the response
-  return fetch(url)
+  return fetch('https://cors-anywhere-coldspeed.herokuapp.com/https://wiki.tppc.info/Training_Accounts')
     .then(response => response.text())
     .then(text => {
       // Use DOMParser to parse the HTML table from the response content
