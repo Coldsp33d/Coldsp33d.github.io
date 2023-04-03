@@ -19,7 +19,8 @@
       margin-bottom: 2rem;
     }
 
-    #results-table {
+    #results-table,
+    #calculation-info {
       margin-top: 2rem;
     }
   </style>
@@ -60,11 +61,16 @@
           <button id="submit" type="submit" class="btn btn-primary">Submit</button>
         </form>
 
+        <div class="alert alert-info" id="calculation-info" style="visibility:hidden;" role="alert">
+          
+        </div>
+
         <table id="results-table" class="table">
           <thead>
             <tr>
               <th scope="col">Trainer</th>
               <th scope="col">Battles Required</th>
+              <th scope="col">Exp after</th>
             </tr>
           </thead>
           <tbody>

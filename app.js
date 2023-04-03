@@ -36,7 +36,9 @@ function findOptimalTrainers(
 
   if (highestGym) {
     const index = tableSorted.map(row => row.number).indexOf(highestGym);
-    tableSorted = tableSorted.splice(index);
+    if (index > 0) {
+      tableSorted = tableSorted.splice(index);
+    }
   }
 
   // Initialize the result dictionary and compute the remaining exp to gain
@@ -53,9 +55,12 @@ function findOptimalTrainers(
     }
     const numBattles = Math.floor(remainingExp / expGain);
     if (numBattles > 0) {
-      trainers[row.name + (includeId ? ` (${row.number})` : "")] = numBattles;
       remainingExp -= numBattles * expGain;
       currentExp2 += numBattles * expGain;
+      trainers[row.name + (includeId ? ` (${row.number})` : "")] = {
+        'numBattles': numBattles,
+        'expAfter': currentExp2
+      };
     }
     if (remainingExp <= 0) {
       break;
@@ -215,16 +220,22 @@ async function main() {
       highestGym
     );
 
+    const infoDiv = document.getElementById('calculation-info');
+    infoDiv.innerHTML = '';
+    infoDiv.innerHTML = `While training during the ${isEastCoastDaytime() ? 'DAY' : 'NIGHT'} time`;
+    infoDiv.style.visibility = 'visible';
+
     // Populate the results table
     const resultsTableBody = document
       .getElementById("results-table")
       .querySelector("tbody");
     resultsTableBody.innerHTML = "";
-    for (const [trainer, battles] of Object.entries(trainers)) {
+    for (const [trainer, battleData] of Object.entries(trainers)) {
       const row = document.createElement("tr");
       row.innerHTML = `
       <td>${trainer}</td>
-      <td>${battles}</td>
+      <td>${battleData.numBattles}</td>
+      <td>${battleData.expAfter}</td>
     `;
       resultsTableBody.appendChild(row);
     }
