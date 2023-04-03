@@ -34,7 +34,7 @@
           </small>
         </h1>
 
-        <form id="input-form">
+        <form id="input-form" onsubmit="return false;">
           <div class="mb-3">
             <label for="current-exp" class="form-label">Current Exp:</label>
             <input type="number" class="form-control" id="current-exp" name="current-exp" required>
@@ -50,7 +50,7 @@
             <label for="use-gratz-matt" class="form-check-label">Can you KO Gratz Matt gym? </label>
           </div>
 
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button id="submit" type="submit" class="btn btn-primary">Submit</button>
         </form>
 
         <table id="results-table" class="table">

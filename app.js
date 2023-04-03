@@ -203,6 +203,11 @@ async function main() {
     });
     history.replaceState(null, null, '?' + params.toString());
   });
+
+  if (!!currentExpInput.value && !!desiredExpInput.value) {
+    const submitButton = document.getElementById('submit');
+    submitButton.click();    
+  }
 }
 
 main();
