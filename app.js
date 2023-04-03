@@ -51,9 +51,10 @@ function getPerfectExp(level, ceil = true) {
   return Math.pow(level, 3) + 1;
 }
 
-async function run(disableGratzmattGym = false) {
+async function run(currentExp, desiredExp, disableGratzmattGym = false) {
+  const url = 'https://cors-anywhere-coldspeed.herokuapp.com/https://wiki.tppc.info/Training_Accounts';
   // Make a GET request to the URL and get the response
-  return fetch('https://cors-anywhere-coldspeed.herokuapp.com/https://wiki.tppc.info/Training_Accounts')
+  return fetch(url)
     .then(response => response.text())
     .then(text => {
       // Use DOMParser to parse the HTML table from the response content
@@ -70,7 +71,7 @@ async function run(disableGratzmattGym = false) {
         expDay: parseInt(row.cells[6].textContent.replaceAll(',', '').trim()),
         expNight: parseInt(row.cells[7].textContent.replaceAll(',', '').trim())
       }));
-      let table = {
+      const table = {
         columns: ['name', 'number', 'expDay', 'expNight'],
         data: tableData
       };
