@@ -9,7 +9,12 @@ function isEastCoastDaytime() {
   return hour >= 6 && hour < 18;
 }
 
-function findOptimalTrainers(currentExp, desiredExp, table, useExpNight = false, includeId = false) {
+function findOptimalTrainers(currentExp, 
+                             desiredExp, 
+                             table, 
+                             useExpNight = false, 
+                             includeId = false,
+                             disableGratzmattGym = false) {
   // Compute the exp difference and filter out trainers with negative exp gains
   const expGain = useExpNight ? table.data.map(row => row.expNight) : table.data.map(row => row.expDay);
   const tableFiltered = table.data.filter((row, index) => expGain[index] <= (desiredExp - currentExp));
@@ -26,7 +31,7 @@ function findOptimalTrainers(currentExp, desiredExp, table, useExpNight = false,
   for (const row of tableSorted) {
     const expGain = useExpNight ? row.expNight : row.expDay;
     const expDiff = expGain - remainingExp;
-    if (expDiff > 0) {
+    if (expDiff > 0 || (row.number === 3476575 && disableGratzmattGym)) {
       continue;
     }
     const numBattles = Math.floor(remainingExp / expGain);
@@ -51,7 +56,8 @@ function getPerfectExp(level, ceil = true) {
   return Math.pow(level, 3) + 1;
 }
 
-async function run(currentExp, desiredExp, disableGratzmattGym = false) {
+async function prefetchTable() {
+  // Bypass CORS issue with url
   const url = 'https://cors-anywhere-coldspeed.herokuapp.com/https://wiki.tppc.info/Training_Accounts';
   // Make a GET request to the URL and get the response
   return fetch(url)
@@ -75,9 +81,6 @@ async function run(currentExp, desiredExp, disableGratzmattGym = false) {
         columns: ['name', 'number', 'expDay', 'expNight'],
         data: tableData
       };
-      if (disableGratzmattGym) {
-        table.data = table.data.slice(0, -1);
-      }
       // Append extra trainers
       table.data.push({
         name: 'illuzion lv5 MILOTIC ONLY',
@@ -92,16 +95,13 @@ async function run(currentExp, desiredExp, disableGratzmattGym = false) {
         expNight: 3
       });
       table.data.push({
-        name: 'shedinja SINGLE EXP SHARE',
+        name: 'shedinja w/ EXP SHARE',
         number: 2380615,
         expDay: 1,
         expNight: 1
       });
 
-      // Compute the optimal trainers
-      const trainers = findOptimalTrainers(currentExp, desiredExp, table, !isEastCoastDaytime(), true);
-
-      return trainers
+      return table;
     })
     .catch(error => console.error(error));
 }
@@ -128,37 +128,35 @@ function test() {
 }
 
 async function main() {
-  const currentExp = 15_606_381_712;
-  const desiredExp = getPerfectExp(2499);
-  const disableGratzmattGym = true;
-  const trainers = await run(currentExp, desiredExp, disableGratzmattGym);
-  console.log(trainers);
+  const table = await prefetchTable();
+  const form = document.getElementById('input-form');
+  const tableBody = document.querySelector('#results-table tbody');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const currentExp = 15_606_381_712;
+    const desiredExp = getPerfectExp(2499); // 15624999999
+    //const currentExp = Number(event.target.elements['current-exp'].value);
+    //const desiredExp = Number(event.target.elements['desired-exp'].value);
+    const disableGratzmattGym = !event.target.elements['use-gratz-matt'].checked;
+
+    // Call findOptimalTrainers function with input values
+    const trainers = findOptimalTrainers(
+      currentExp, desiredExp, table, !isEastCoastDaytime(), true, disableGratzmattGym);
+
+    // Clear existing table rows
+    tableBody.innerHTML = '';
+
+    // Add new rows to table with results
+    for (const [trainer, battles] of Object.entries(trainers)) {
+      const row = tableBody.insertRow();
+      const trainerCell = row.insertCell();
+      const battlesCell = row.insertCell();
+      trainerCell.innerText = trainer;
+      battlesCell.innerText = battles;
+    }
+  });
 }
 
-//main();
+main();
 
-const form = document.getElementById('input-form');
-const tableBody = document.querySelector('#results-table tbody');
-
-form.addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-  const currentExp = Number(event.target.elements['current-exp'].value);
-  const desiredExp = Number(event.target.elements['desired-exp'].value);
-  const disableGratzmattGym = !event.target.elements['use-gratz-matt'].checked;
-
-  // Call findOptimalTrainers function with input values
-  const trainers = await run(currentExp, desiredExp, disableGratzmattGym);
-
-  // Clear existing table rows
-  tableBody.innerHTML = '';
-
-  // Add new rows to table with results
-  for (const [trainer, battles] of Object.entries(trainers)) {
-    const row = tableBody.insertRow();
-    const trainerCell = row.insertCell();
-    const battlesCell = row.insertCell();
-    trainerCell.innerText = trainer;
-    battlesCell.innerText = battles;
-  }
-});
