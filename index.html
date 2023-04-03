@@ -1,1 +1,37 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Find Optimal Trainers</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Find Optimal Trainers</h1>
+
+  <form id="input-form">
+    <label for="current-exp">Current Exp:</label>
+    <input type="number" id="current-exp" name="current-exp" required>
+
+    <label for="desired-exp">Desired Exp:</label>
+    <input type="number" id="desired-exp" name="desired-exp" required>
+
+    <label for="use-exp-night">Can you KO Gratz Matt gym?</label>
+    <input type="checkbox" id="use-gratz-matt" name="use-gratz-matt" value="true">
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <table id="results-table">
+    <thead>
+      <tr>
+        <th>Trainer</th>
+        <th>Battles Required</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script src="app.js"></script>
+</body>
+</html>
