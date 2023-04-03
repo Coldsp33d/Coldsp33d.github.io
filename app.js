@@ -59,7 +59,8 @@ function findOptimalTrainers(
       currentExp2 += numBattles * expGain;
       trainers[row.name + (includeId ? ` (${row.number})` : "")] = {
         'numBattles': numBattles,
-        'expAfter': currentExp2
+        'expAfter': currentExp2,
+        'expGain': expGain,
       };
     }
     if (remainingExp <= 0) {
@@ -234,6 +235,7 @@ async function main() {
       const row = document.createElement("tr");
       row.innerHTML = `
       <td>${trainer}</td>
+      <td>${battleData.expGain}</td>
       <td>${battleData.numBattles}</td>
       <td>${battleData.expAfter}</td>
     `;
