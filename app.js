@@ -192,7 +192,13 @@ async function main() {
 
   const currentExpInput = document.getElementById("current-exp");
   const desiredExpInput = document.getElementById("desired-exp");
+  const useExpNightInput = document.getElementById("use-exp-night");
   const highestGymInput = document.getElementById("highest-beatable-trainer");
+  const timeOfDayLabel = document.getElementById("time-of-day");
+
+  const isDayTime = isEastCoastDaytime();
+  useExpNightInput.checked = !isDayTime;
+  timeOfDayLabel.innerText = isDayTime ? 'daytime' : 'nighttime';
 
   // Get the query parameters from the URL and set them as the form values
   const urlParams = new URLSearchParams(window.location.search);
@@ -210,20 +216,21 @@ async function main() {
     const currentExp = parseInt(currentExpInput.value);
     const desiredExp = parseInt(desiredExpInput.value);
     const highestGym = parseInt(highestGymInput.value);
+    const isNightTime = useExpNightInput.checked
 
     // Call findOptimalTrainers function with input values
     const trainers = findOptimalTrainers(
       currentExp,
       desiredExp,
       table,
-      !isEastCoastDaytime(),
+      isNightTime,
       true,
       highestGym
     );
 
     const infoDiv = document.getElementById('calculation-info');
     infoDiv.innerHTML = '';
-    infoDiv.innerHTML = `While training during the ${isEastCoastDaytime() ? 'DAY' : 'NIGHT'} time`;
+    infoDiv.innerHTML = `While training during the ${isNightTime ? 'NIGHT' : 'DAY'} time`;
     infoDiv.style.visibility = 'visible';
 
     // Populate the results table
