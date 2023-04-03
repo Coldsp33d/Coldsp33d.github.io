@@ -147,14 +147,29 @@ async function main() {
   const form = document.getElementById("input-form");
   const tableBody = document.querySelector("#results-table tbody");
 
+  const currentExpInput = document.getElementById("current-exp");
+  const desiredExpInput = document.getElementById("desired-exp");
+  const useGratzMattInput = document.getElementById("use-gratz-matt");
+
+  // Get the query parameters from the URL and set them as the form values
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has("currentExp")) {
+    currentExpInput.value = urlParams.get("currentExp");
+  }
+  if (urlParams.has("desiredExp")) {
+    desiredExpInput.value = urlParams.get("desiredExp");
+  }
+  if (urlParams.has("useGratzMattGym")) {
+    useGratzMattInput.checked = urlParams.get("useGratzMattGym") === "true";
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     // const currentExp = 15_606_381_712;
     // const desiredExp = getPerfectExp(2499); // 15624999999
-    const currentExp = Number(event.target.elements["current-exp"].value);
-    const desiredExp = Number(event.target.elements["desired-exp"].value);
-    const disableGratzmattGym = !event.target.elements["use-gratz-matt"]
-      .checked;
+    const currentExp = parseInt(currentExpInput.value);
+    const desiredExp = parseInt(desiredExpInput.value);
+    const disableGratzmattGym = !useGratzMattInput.checked;
 
     // Call findOptimalTrainers function with input values
     const trainers = findOptimalTrainers(
@@ -166,17 +181,27 @@ async function main() {
       disableGratzmattGym
     );
 
-    // Clear existing table rows
-    tableBody.innerHTML = "";
-
-    // Add new rows to table with results
+    // Populate the results table
+    const resultsTableBody = document
+      .getElementById("results-table")
+      .querySelector("tbody");
+    resultsTableBody.innerHTML = "";
     for (const [trainer, battles] of Object.entries(trainers)) {
-      const row = tableBody.insertRow();
-      const trainerCell = row.insertCell();
-      const battlesCell = row.insertCell();
-      trainerCell.innerText = trainer;
-      battlesCell.innerText = battles;
+      const row = document.createElement("tr");
+      row.innerHTML = `
+      <td>${trainer}</td>
+      <td>${battles}</td>
+    `;
+      resultsTableBody.appendChild(row);
     }
+
+    // Replace the history state with the URL params
+    const params = new URLSearchParams({
+      'currentExp': currentExp,
+      'desiredExp': desiredExp,
+      'useGratzMattGym': !disableGratzmattGym
+    });
+    history.replaceState(null, null, '?' + params.toString());
   });
 }
 
