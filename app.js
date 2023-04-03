@@ -17,7 +17,7 @@ function findOptimalTrainers(
   table,
   useExpNight = false,
   includeId = false,
-  disableGratzmattGym = false
+  highestGymInput = undefined
 ) {
   // Compute the exp difference and filter out trainers with negative exp gains
   const expGain = useExpNight
@@ -28,11 +28,16 @@ function findOptimalTrainers(
   );
 
   // Sort the table by exp gains in descending order
-  const tableSorted = tableFiltered.sort(
+  let tableSorted = tableFiltered.sort(
     (a, b) =>
       -(useExpNight ? a.expNight : a.expDay) +
       (useExpNight ? b.expNight : b.expDay)
   );
+
+  if (highestGymInput) {
+    const index = tableSorted.map(row => row.number).indexOf(highestGymInput);
+    tableSorted = tableSorted.splice(index);
+  }
 
   // Initialize the result dictionary and compute the remaining exp to gain
   const trainers = {};
@@ -43,7 +48,7 @@ function findOptimalTrainers(
   for (const row of tableSorted) {
     const expGain = useExpNight ? row.expNight : row.expDay;
     const expDiff = expGain - remainingExp;
-    if (expDiff > 0 || (row.number === 3476575 && disableGratzmattGym)) {
+    if (expDiff > 0) {
       continue;
     }
     const numBattles = Math.floor(remainingExp / expGain);
@@ -85,10 +90,11 @@ async function prefetchTable() {
       // Drop the unwanted columns by their column names
       const tableRows = Array.from(table1.rows).slice(1);
       const tableData = Array.from(tableRows).map((row) => ({
-        name: row.cells[0].textContent.trim(),
+        name: row.cells[0].textContent.trim().replaceAll('*', ''),
         number: parseInt(row.cells[1].textContent.trim()),
         expDay: parseInt(row.cells[6].textContent.replaceAll(",", "").trim()),
-        expNight: parseInt(row.cells[7].textContent.replaceAll(",", "").trim())
+        expNight: parseInt(row.cells[7].textContent.replaceAll(",", "").trim()),
+        level: row.cells[5].textContent.trim(),
       }));
       const table = {
         columns: ["name", "number", "expDay", "expNight"],
@@ -142,14 +148,45 @@ function test() {
   }
 }
 
+function updateTrainerSelectDropdown(table) {
+  const select = document.getElementById('highest-beatable-trainer');
+  select.innerHTML = '';
+  const useExpNight = !isEastCoastDaytime();
+  const tableSorted = table.data.sort(
+    (a, b) =>
+      -(useExpNight ? a.expNight : a.expDay) +
+      (useExpNight ? b.expNight : b.expDay)
+  ).slice(0, 10);
+  const option = document.createElement('option');
+  option.textContent = 'Select the highest gym you can KO with Exp Freeze';
+  option.disabled = true;
+  select.appendChild(option);
+
+  tableSorted.forEach(trainer => {
+    const option = document.createElement('option');
+    option.value = trainer.number;
+    option.textContent = `${trainer.name} (level: ${trainer.level})`;
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has("highestGym")) {
+    const highestGym = parseInt(urlParams.get("highestGym"));
+    if (trainer.number === highestGym) {
+      option.selected = true;
+    }
+  }
+    select.appendChild(option);
+  });
+}
+
 async function main() {
   const table = await prefetchTable();
+  updateTrainerSelectDropdown(table);
+
   const form = document.getElementById("input-form");
   const tableBody = document.querySelector("#results-table tbody");
 
   const currentExpInput = document.getElementById("current-exp");
   const desiredExpInput = document.getElementById("desired-exp");
-  const useGratzMattInput = document.getElementById("use-gratz-matt");
+  const highestGymInput = document.getElementById("highest-beatable-trainer");
 
   // Get the query parameters from the URL and set them as the form values
   const urlParams = new URLSearchParams(window.location.search);
@@ -159,9 +196,7 @@ async function main() {
   if (urlParams.has("desiredExp")) {
     desiredExpInput.value = urlParams.get("desiredExp");
   }
-  if (urlParams.has("useGratzMattGym")) {
-    useGratzMattInput.checked = urlParams.get("useGratzMattGym") === "true";
-  }
+
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -169,7 +204,7 @@ async function main() {
     // const desiredExp = getPerfectExp(2499); // 15624999999
     const currentExp = parseInt(currentExpInput.value);
     const desiredExp = parseInt(desiredExpInput.value);
-    const disableGratzmattGym = !useGratzMattInput.checked;
+    const highestGym = parseInt(highestGymInput.value);
 
     // Call findOptimalTrainers function with input values
     const trainers = findOptimalTrainers(
@@ -178,7 +213,7 @@ async function main() {
       table,
       !isEastCoastDaytime(),
       true,
-      disableGratzmattGym
+      highestGym
     );
 
     // Populate the results table
@@ -199,7 +234,7 @@ async function main() {
     const params = new URLSearchParams({
       'currentExp': currentExp,
       'desiredExp': desiredExp,
-      'useGratzMattGym': !disableGratzmattGym
+      'highestGym': highestGym
     });
     history.replaceState(null, null, '?' + params.toString());
   });

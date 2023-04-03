@@ -50,9 +50,11 @@
             <input type="number" class="form-control" id="desired-exp" name="desired-exp" required>
           </div>
 
-          <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="use-gratz-matt" name="use-gratz-matt" value="true">
-            <label for="use-gratz-matt" class="form-check-label">Can you KO Gratz Matt gym? </label>
+          <div class="form-group">
+            <label for="highest-beatable-trainer">Highest gym you can KO with Exp Freeze:</label>
+            <select class="form-control" id="highest-beatable-trainer" name="highest-beatable-trainer">
+              <option disabled>Loading...</option>
+            </select>
           </div>
 
           <button id="submit" type="submit" class="btn btn-primary">Submit</button>
