@@ -30,6 +30,11 @@
     .btn-clear-all {
       font-size: 1.2rem;
     }
+
+    .btn-calc {
+      font-weight: bold;
+      width:  80px;
+    }
   </style>
 </head>
 
@@ -87,7 +92,7 @@
               <div class="form-group">
                 <input type="number" class="form-control" id="levelInput" placeholder="Enter Level">
               </div>
-              <button type="button" class="btn btn-primary mr-2" onclick="calculateLevel2Exp()">Calculate</button>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateLevel2Exp()">=</button>
               <button type="button" class="btn btn-outline-secondary btn-light" onclick="clearLevel2Exp()">Clear</button>
               <div class="form-group mt-3">
                 <input placeholder="Experience" type="text" class="form-control" id="levelExpOutput" disabled>
@@ -107,7 +112,7 @@
               <div class="form-group">
                 <input type="number" class="form-control" id="levelInputBillion" placeholder="Enter Level">
               </div>
-              <button type="button" class="btn btn-primary mr-2" onclick="calculateLevel2ExpInBillion()">Calculate</button>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateLevel2ExpInBillion()">=</button>
               <button type="button" class="btn btn-outline-secondary btn-light" onclick="clearLevel2ExpBillion()">Clear</button>
               <div class="form-group mt-3">
                 <input placeholder="Exp. in Billion" type="text" class="form-control" id="levelExpOutputBillion" disabled>
@@ -129,7 +134,7 @@
               <div class="form-group">
                 <input type="number" class="form-control" id="expInput" placeholder="Enter Exp.">
               </div>
-              <button type="button" class="btn btn-primary mr-2" onclick="calculateExp2Level()">Calculate</button>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateExp2Level()">=</button>
               <button type="button" class="btn btn-outline-secondary" onclick="clearExp2Level()">Clear</button>
               <div class="form-group mt-3">
                 <input type="text" class="form-control" id="expLevelOutput" placeholder="Level" disabled>
@@ -149,7 +154,7 @@
               <div class="form-group">
                 <input type="number" class="form-control" id="expInputBillion" placeholder="Enter Exp. in Billion">
               </div>
-              <button type="button" class="btn btn-primary mr-2" onclick="calculateExpInBillion2Level()">Calculate</button>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateExpInBillion2Level()">=</button>
               <button type="button" class="btn btn-outline-secondary" onclick="clearExpInBillion2Level()">Clear</button>
               <div class="form-group mt-3">
                 <input type="text" class="form-control" id="expLevelOutputBillion" placeholder="Level" disabled>
@@ -177,7 +182,7 @@
                 </div>
                 <input type="number" class="form-control" id="levelInput2" placeholder="Enter Level 2">
               </div>
-              <button type="button" class="btn btn-primary mr-2" onclick="calculateLevelDifference()">Calculate</button>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateLevelDifference()">=</button>
               <button type="button" class="btn btn-outline-secondary" onclick="clearLevelDiff()">Clear</button>
               <div class="form-group mt-3">
                 <input type="text" class="form-control" id="levelDiffOutput" placeholder="Level Difference" disabled>
@@ -202,7 +207,7 @@
                 </div>
                 <input type="number" class="form-control" id="levelInput3" placeholder="Enter Level">
               </div>
-              <button type="button" class="btn btn-primary mr-2" onclick="calculateExpAdd()">Calculate</button>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateExpAdd()">=</button>
               <button type="button" class="btn btn-outline-secondary" onclick="clearExpAdd()">Clear</button>
               <div class="form-group mt-3">
                 <input type="text" class="form-control" id="expLevelOutput2" placeholder="Level" disabled>
@@ -229,7 +234,7 @@
                 </div>
                 <input placeholder="Enter Level" type="number" class="form-control" id="levelInput4" placeholder="Enter Level">
               </div>
-              <button type="button" class="btn btn-primary" onclick="calculateExpInBillAdd()">Calculate</button>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateExpInBillAdd()">=</button>
               <button type="button" class="btn btn-outline-secondary" onclick="clearExpInBillAdd()">Clear</button>
               <div class="form-group mt-3">
                 <input placeholder="Level" type="text" class="form-control" id="expLevelOutput3" disabled>
