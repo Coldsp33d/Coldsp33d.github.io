@@ -23,11 +23,11 @@ function levelDifference(level1, level2) {
 }
 
 function expAdd(exp, level) {
-  return exp2level(level2exp(level) + exp);
+  return exp2Level(level2Exp(level) + exp);
 }
 
 function expInBillAdd(exp, level) {
-  return exp2level(level2exp(level) + exp * 1e9);
+  return exp2Level(level2Exp(level) + exp * 1e9);
 }
 
 function calculateLevel2Exp() {
