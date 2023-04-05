@@ -1,7 +1,5 @@
-
 function level2Exp(level) {
-  return Math.pow(level, 3) + 1;  
-
+  return Math.pow(level, 3) + 1;
 }
 
 function level2ExpInBillion(level) {
@@ -9,14 +7,14 @@ function level2ExpInBillion(level) {
 }
 
 function exp2Level(exp) {
-  return Math.pow(exp - 1, 1/3);
+  return Math.pow(exp - 1, 1 / 3);
 }
 
 function expInBillion2Level(exp) {
   return exp2Level(exp * 1e9);
 }
 
-function levelDifference(level1, level2) { 
+function levelDifference(level1, level2) {
   const smaller = level1 > level2 ? level2 : level1;
   const bigger = level1 > level2 ? level1 : level2;
   return exp2Level(level2Exp(bigger) - level2Exp(smaller));
@@ -75,18 +73,64 @@ function calculateExpInBillAdd() {
   document.getElementById("expLevelOutput3").value = newLevel;
 }
 
+function clearLevel2Exp() {
+  document.getElementById("levelInput").value = "";
+  document.getElementById("levelExpOutput").value = "";
+}
+
+function clearLevel2ExpBillion() {
+  document.getElementById("levelInputBillion").value = "";
+  document.getElementById("levelExpOutputBillion").value = "";
+}
+
+function clearExp2Level() {
+  document.getElementById("expInput").value = "";
+  document.getElementById("expLevelOutput").value = "";
+}
+
+function clearExpInBillion2Level() {
+  document.getElementById("expInputBillion").value = "";
+  document.getElementById("expLevelOutputBillion").value = "";
+}
+
+function clearLevelDiff() {
+  document.getElementById("levelInput1").value = "";
+  document.getElementById("levelInput2").value = "";
+  document.getElementById("levelDiffOutput").value = "";
+}
+
+function clearExpAdd() {
+  document.getElementById("expInput2").value = "";
+  document.getElementById("levelInput3").value = "";
+  document.getElementById("expLevelOutput2").value = "";
+}
+
+function clearExpInBillAdd() {
+  document.getElementById("expInput3").value = "";
+  document.getElementById("levelInput4").value = "";
+  document.getElementById("expLevelOutput3").value = "";
+}
+
 const scrollToTopBtn = document.getElementById("scroll-to-top");
 
 scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 window.addEventListener("scroll", () => {
   if (window.pageYOffset > 100) {
-      scrollToTopBtn.classList.add("show");
+    scrollToTopBtn.classList.add("show");
   } else {
-      scrollToTopBtn.classList.remove("show");
+    scrollToTopBtn.classList.remove("show");
   }
 });
 
-module.exports = { level2exp, level2ExpInBillion, exp2Level, expInBillion2Level, levelDifference, expAdd, expInBillAdd };
+module.exports = {
+  level2exp,
+  level2ExpInBillion,
+  exp2Level,
+  expInBillion2Level,
+  levelDifference,
+  expAdd,
+  expInBillAdd
+};
