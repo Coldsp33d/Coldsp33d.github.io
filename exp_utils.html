@@ -29,8 +29,17 @@
 </head>
 
 <body>
+  <header class="container my-3">
+    <h1>TPPC Level & Experience Utils</h1>
+  </header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Table of Contents</a>
+    <a class="navbar-brand" href="#">Quick Jump
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" />
+        </svg>
+      </span>
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -61,149 +70,166 @@
     </div>
   </nav>
 
-  <div class="container my-5">
-    <div class="card" id="levelToExp">
-      <div class="card-header">
-        Level to Experience
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mt-5" id="levelToExp">
+          <div class="card-header">
+            Level to Experience
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <input type="number" class="form-control" id="levelInput" placeholder="Enter Level">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateLevel2Exp()">Calculate</button>
+              <div class="form-group mt-3">
+                <input placeholder="Experience" type="text" class="form-control" id="levelExpOutput" disabled>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="levelInput">Enter Level:</label>
-            <input type="number" class="form-control" id="levelInput" placeholder="Enter Level">
+
+      <div class="col-md-6">
+        <div class="card mt-5" id="levelToExpBillion">
+          <div class="card-header">
+            Level to Experience in Billion
           </div>
-          <button type="button" class="btn btn-primary" onclick="calculateLevel2Exp()">Calculate</button>
-          <div class="form-group mt-3">
-            <label for="levelExpOutput">Experience:</label>
-            <input type="text" class="form-control" id="levelExpOutput" disabled>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <input type="number" class="form-control" id="levelInputBillion" placeholder="Enter Level">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateLevel2ExpInBillion()">Calculate</button>
+              <div class="form-group mt-3">
+                <input placeholder="Experience in Billion" type="text" class="form-control" id="levelExpOutputBillion" disabled>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
 
-    <div class="card my-5" id="levelToExpBillion">
-      <div class="card-header">
-        Level to Experience in Billion
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mt-5" id="expToLevel">
+          <div class="card-header">
+            Experience to Level
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <input type="number" class="form-control" id="expInput" placeholder="Enter Experience">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateExp2Level()">Calculate</button>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" id="expLevelOutput" placeholder="Level" disabled>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="levelInputBillion">Enter Level:</label>
-            <input type="number" class="form-control" id="levelInputBillion" placeholder="Enter Level">
+
+      <div class="col-md-6">
+        <div class="card mt-5" id="expToLevelBillion">
+          <div class="card-header">
+            Experience in Billion to Level
           </div>
-          <button type="button" class="btn btn-primary" onclick="calculateLevel2ExpInBillion()">Calculate</button>
-          <div class="form-group mt-3">
-            <label for="levelExpOutputBillion">Experience in Billion:</label>
-            <input type="text" class="form-control" id="levelExpOutputBillion" disabled>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <input type="number" class="form-control" id="expInputBillion" placeholder="Enter Experience in Billion">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateExpInBillion2Level()">Calculate</button>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" id="expLevelOutputBillion" placeholder="Level" disabled>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-
-    <div class="card my-5" id="expToLevel">
-      <div class="card-header">
-        Experience to Level
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mt-5" id="levelDiff">
+          <div class="card-header">
+            Level Difference
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group input-group">
+                <input type="number" class="form-control" id="levelInput1" placeholder="Enter Level 1">
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                      <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                    </svg>
+                  </span>
+                </div>
+                <input type="number" class="form-control" id="levelInput2" placeholder="Enter Level 2">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateLevelDifference()">Calculate</button>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" id="levelDiffOutput" placeholder="Level Difference" disabled>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="expInput">Enter Experience:</label>
-            <input type="number" class="form-control" id="expInput" placeholder="Enter Experience">
+      <div class="col-md-6">
+        <div class="card mt-5" id="expAdd">
+          <div class="card-header">
+            Add Experience to Level
           </div>
-          <button type="button" class="btn btn-primary" onclick="calculateExp2Level()">Calculate</button>
-          <div class="form-group mt-3">
-            <label for="expLevelOutput">Level:</label>
-            <input type="text" class="form-control" id="expLevelOutput" disabled>
+          <div class="card-body">
+            <form>
+              <div class="form-group input-group">
+                <input type="number" class="form-control" id="expInput2" placeholder="Enter Experience">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                    </svg>
+                  </span>
+                </div>
+                <input type="number" class="form-control" id="levelInput3" placeholder="Enter Level">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateExpAdd()">Calculate</button>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" id="expLevelOutput2" placeholder="Level" disabled>
+              </div>
+            </form>
           </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="card my-5" id="expToLevelBillion">
-      <div class="card-header">
-        Experience in Billion to Level
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="expInputBillion">Enter Experience in Billion:</label>
-            <input type="number" class="form-control" id="expInputBillion" placeholder="Enter Experience in Billion">
-          </div>
-          <button type="button" class="btn btn-primary" onclick="calculateExpInBillion2Level()">Calculate</button>
-          <div class="form-group mt-3">
-            <label for="expLevelOutputBillion">Level:</label>
-            <input type="text" class="form-control" id="expLevelOutputBillion" disabled>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="card my-5" id="levelDiff">
-      <div class="card-header">
-        Level Difference
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="levelInput1">Enter Level 1:</label>
-            <input type="number" class="form-control" id="levelInput1" placeholder="Enter Level 1">
-          </div>
-          <div class="form-group">
-            <label for="levelInput2">Enter Level 2:</label>
-            <input type="number" class="form-control" id="levelInput2" placeholder="Enter Level 2">
-          </div>
-          <button type="button" class="btn btn-primary" onclick="calculateLevelDifference()">Calculate</button>
-          <div class="form-group mt-3">
-            <label for="levelDiffOutput">Level Difference:</label>
-            <input type="text" class="form-control" id="levelDiffOutput" disabled>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
-
-    <div class="card my-5" id="expAdd">
-      <div class="card-header">
-        Add Experience to Level
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="expInput2">Enter Experience:</label>
-            <input type="number" class="form-control" id="expInput2" placeholder="Enter Experience">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card mt-5" id="expInBillAdd">
+          <div class="card-header">
+            Add Experience in Billion to Level
           </div>
-          <div class="form-group">
-            <label for="levelInput3">Enter Level:</label>
-            <input type="number" class="form-control" id="levelInput3" placeholder="Enter Level">
+          <div class="card-body">
+            <form>
+              <div class="form-group input-group">
+                <input placeholder="Enter Experience in Billion" type="number" class="form-control" id="expInput3" placeholder="Enter Experience in Billion">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+                    </svg>
+                  </span>
+                </div>
+                <input placeholder="Enter Level" type="number" class="form-control" id="levelInput4" placeholder="Enter Level">
+              </div>
+              <button type="button" class="btn btn-primary" onclick="calculateExpInBillAdd()">Calculate</button>
+              <div class="form-group mt-3">
+                <input placeholder="Level" type="text" class="form-control" id="expLevelOutput3" disabled>
+              </div>
+            </form>
           </div>
-          <button type="button" class="btn btn-primary" onclick="calculateExpAdd()">Calculate</button>
-          <div class="form-group mt-3">
-            <label for="expLevelOutput2">Level:</label>
-            <input type="text" class="form-control" id="expLevelOutput2" disabled>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <div class="card my-5" id="expInBillAdd">
-      <div class="card-header">
-        Add Experience in Billion to Level
-      </div>
-      <div class="card-body">
-        <form>
-          <div class="form-group">
-            <label for="expInput3">Enter Experience in Billion:</label>
-            <input type="number" class="form-control" id="expInput3" placeholder="Enter Experience in Billion">
-          </div>
-          <div class="form-group">
-            <label for="levelInput4">Enter Level:</label>
-            <input type="number" class="form-control" id="levelInput4" placeholder="Enter Level">
-          </div>
-          <button type="button" class="btn btn-primary" onclick="calculateExpInBillAdd()">Calculate</button>
-          <div class="form-group mt-3">
-            <label for="expLevelOutput3">Level:</label>
-
-            <input type="text" class="form-control" id="expLevelOutput3" disabled>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -211,8 +237,7 @@
   <button id="scroll-to-top" class="btn btn-primary">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
       <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-    </svg>
-  </button>
+    </svg></button>
 
   <!-- Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
