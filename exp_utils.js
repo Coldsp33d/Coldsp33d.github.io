@@ -111,6 +111,16 @@ function clearExpInBillAdd() {
   document.getElementById("expLevelOutput3").value = "";
 }
 
+function clearAll() {
+  clearLevel2Exp();
+  clearLevel2ExpBillion();
+  clearExp2Level();
+  clearExpInBillion2Level();
+  clearLevelDiff();
+  clearExpAdd();
+  clearExpInBillAdd();
+}
+
 const scrollToTopBtn = document.getElementById("scroll-to-top");
 
 scrollToTopBtn.addEventListener("click", () => {
