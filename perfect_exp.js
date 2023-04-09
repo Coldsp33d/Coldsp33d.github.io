@@ -116,7 +116,7 @@ async function prefetchTable() {
 }
 
 function loadTableFromJson() {
-  fetch('trainers.json')
+  return fetch('https://coldsp33d.github.io/trainers.json')
   .then(response => response.json())
   .catch(error => console.error(error));
 }
