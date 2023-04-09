@@ -19,6 +19,7 @@ function findOptimalTrainers(
   includeId = false,
   highestGym = undefined
 ) {
+  console.log(JSON.stringify(table));
   const expGain = useExpNight ? "expNight" : "expDay";
   const tableFiltered = table.data
     .filter((row) => row[expGain] <= desiredExp - currentExp)
@@ -114,6 +115,12 @@ async function prefetchTable() {
     .catch((error) => console.error(error));
 }
 
+function loadTableFromJson() {
+  fetch('trainers.json')
+  .then(response => response.json())
+  .catch(error => console.error(error));
+}
+
 function test() {
   const currentExp = 1;
   const desiredExp = 103;
@@ -169,7 +176,8 @@ function updateTrainerSelectDropdown(table) {
 }
 
 async function main() {
-  const table = await prefetchTable();
+  // const table = await prefetchTable();
+  const table = await loadTableFromJson();
   updateTrainerSelectDropdown(table);
 
   const form = document.getElementById("input-form");
