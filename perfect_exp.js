@@ -65,12 +65,16 @@ function getPerfectExp(level, ceil = true) {
 
 async function prefetchTable() {
   // Bypass CORS issue with url
-  const url =
-    "https://cors-anywhere.herokuapp.com/https://wiki.tppc.info/Training_Accounts";
+  const url = "https://proxy.cors.sh/https://wiki.tppc.info/Training_Accounts";
   // Make a GET request to the URL and get the response
-  return fetch(url)
+  return fetch(url, {
+    headers: {
+      "x-requested-with": "XMLHttpRequest"
+    }
+  })
     .then((response) => response.text())
     .then((text) => {
+      console.log();
       // Use DOMParser to parse the HTML table from the response content
       const parser = new DOMParser();
       const doc = parser.parseFromString(text, "text/html");
@@ -112,13 +116,16 @@ async function prefetchTable() {
 
       return table;
     })
-    .catch((error) => console.error(error));
+    .catch((error) => {
+      console.error(error);
+      throw error;
+    });
 }
 
 function loadTableFromJson() {
-  return fetch('https://coldsp33d.github.io/trainers.json')
-  .then(response => response.json())
-  .catch(error => console.error(error));
+  return fetch("https://coldsp33d.github.io/trainers.json")
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
 }
 
 function test() {
@@ -176,8 +183,12 @@ function updateTrainerSelectDropdown(table) {
 }
 
 async function main() {
-  // const table = await prefetchTable();
-  const table = await loadTableFromJson();
+  let table;
+  try {
+    table = await prefetchTable();
+  } catch (error) {
+    table = await loadTableFromJson();
+  }
   updateTrainerSelectDropdown(table);
 
   const form = document.getElementById("input-form");
