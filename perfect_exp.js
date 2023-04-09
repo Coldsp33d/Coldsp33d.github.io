@@ -65,7 +65,7 @@ function getPerfectExp(level, ceil = true) {
 async function prefetchTable() {
   // Bypass CORS issue with url
   const url =
-    "https://cors-anywhere-coldspeed.herokuapp.com/https://wiki.tppc.info/Training_Accounts";
+    "https://cors-anywhere.herokuapp.com/https://wiki.tppc.info/Training_Accounts";
   // Make a GET request to the URL and get the response
   return fetch(url)
     .then((response) => response.text())
@@ -250,7 +250,6 @@ async function main() {
     submitButton.click();
   }
 }
-
 main();
 
 module.exports = { findOptimalTrainers };
