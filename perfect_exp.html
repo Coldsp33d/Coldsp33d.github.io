@@ -34,12 +34,17 @@
           <small class="text-muted">by finding optimal trainer battles
           </small>
         </h1>
-
         <div class="alert alert-warning" role="alert">
           These calculations are based on the info on Wiki. Please use at your own risk.
           <br><small> Double checking the math is always a good idea.</small>
         </div>
+        <div class="alert alert-warning" role="alert">
+          <strong>Update 5/14/23</strong>
 
+          <br><br>I ran into a situation where one of the listed training accounts didn't end up giving the exp as advertised.
+
+          <br><br>I advise you to double check via a dummy battle if a training account you're not familiar with gives the reqd. amount of exp before applying the exp to your poke. Alternatively, only fight the first 5 blisseys, leave the battle and then have the calculator re-calculate the list of accounts to fight.
+        </div>
         <form id="input-form" onsubmit="return false;">
           <div class="mb-3">
             <label for="current-exp" class="form-label">Current Exp:</label>
@@ -59,14 +64,14 @@
           </div>
 
           <div class="mb-3">
-          <label for="use-exp-night">Calculate for night time (it is currently <span id="time-of-day">daytime</span> in TPPC land):</label>
-          <input type="checkbox" id="use-exp-night" name="use-exp-night" value="false">
+            <label for="use-exp-night">Calculate for night time (it is currently <span id="time-of-day">daytime</span> in TPPC land):</label>
+            <input type="checkbox" id="use-exp-night" name="use-exp-night" value="false">
           </div>
           <button id="submit" type="submit" class="btn btn-primary">Submit</button>
         </form>
 
         <div class="alert alert-info" id="calculation-info" style="display:none;" role="alert">
-          
+
         </div>
 
         <table id="results-table" class="table">
