@@ -271,4 +271,9 @@ async function main() {
 }
 main();
 
-module.exports = { findOptimalTrainers };
+try {
+  module.exports = { findOptimalTrainers };
+}
+catch (e) {
+  export default findOptimalTrainers;
+}
