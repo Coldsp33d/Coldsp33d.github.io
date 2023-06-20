@@ -73,6 +73,12 @@ function calculateExpInBillAdd() {
   document.getElementById("expLevelOutput3").value = newLevel;
 }
 
+function calculateLevelTo4499() {
+  const level = document.getElementById("levelInput5").value;
+  const output = level2ExpInBillion(level) / level2ExpInBillion(4499);
+  document.getElementById("LevelTo4499").value = output;
+}
+
 function clearLevel2Exp() {
   document.getElementById("levelInput").value = "";
   document.getElementById("levelExpOutput").value = "";
@@ -111,6 +117,11 @@ function clearExpInBillAdd() {
   document.getElementById("expLevelOutput3").value = "";
 }
 
+function clearLevelTo4499() {
+  document.getElementById("levelInput5").value = "";
+  document.getElementById("LevelTo4499").value = "";
+}
+
 function clearAll() {
   clearLevel2Exp();
   clearLevel2ExpBillion();
@@ -119,6 +130,7 @@ function clearAll() {
   clearLevelDiff();
   clearExpAdd();
   clearExpInBillAdd();
+  clearLevelTo4499();
 }
 
 const scrollToTopBtn = document.getElementById("scroll-to-top");

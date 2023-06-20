@@ -33,7 +33,7 @@
 
     .btn-calc {
       font-weight: bold;
-      width:  80px;
+      width: 80px;
     }
   </style>
 </head>
@@ -243,7 +243,25 @@
           </div>
         </div>
       </div>
-
+      <div class="col-md-6">
+        <div class="card mt-5" id="level24499s">
+          <div class="card-header">
+            Convert Level to # of 4499s
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group input-group">
+                <input placeholder="Enter Level" type="number" class="form-control" id="levelInput5" placeholder="Enter Level">
+              </div>
+              <button type="button" class="btn btn-primary btn-calc mr-2" onclick="calculateLevelTo4499()">=</button>
+              <button type="button" class="btn btn-outline-secondary" onclick="clearLevelTo4499()">Clear</button>
+              <div class="form-group mt-3">
+                <input placeholder="# of 4499s" type="text" class="form-control" id="LevelTo4499" disabled>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
